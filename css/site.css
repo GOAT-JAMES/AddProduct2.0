@@ -1,0 +1,14 @@
+
+body{
+    background-color: blanchedalmond;
+}
+
+input[type = text]{
+    padding: .4em;
+}
+
+label{
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+}
