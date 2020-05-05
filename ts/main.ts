@@ -37,6 +37,23 @@ function addVideoGame(){
         let game:VideoGame = getVideoGame();
         displayGame(game);
     }
+
+    else{
+        displayRatingsLink();
+    }
+}
+
+function displayRatingsLink(){
+    let ratingsElements = document.querySelectorAll(".rating-error");
+    for (let i = 0; i < ratingsElements.length; i++){
+        let currElem = <HTMLElement>ratingsElements[i];
+        currElem.onclick = goToRatingsPage;
+        //currElem.innerHTML += "<a target='_blank' href= 'https://www.esrb.org/'>Click here for info</a>";
+    }
+}
+
+function goToRatingsPage(){
+    window.open("https://www.esrb.org/", "_blank");
 }
 
 function getById(id:string){
@@ -74,8 +91,7 @@ function getVideoGame():VideoGame{
     }
     */
     
-    return game;
-    
+    return game;   
 }
 
 function displayGame(myGame:VideoGame):void{
@@ -124,7 +140,7 @@ function isAllDataValid(){
     let rating = (<HTMLOptionElement>getById("rating")).value;
     if(rating == ""){
         isValid = false;
-        addErrorMessage("You must choose a rating");
+        addErrorMsgWithCustomerClass("You must choose a rating", "rating-error");
     }
 
     let price = getInputById("price").value;
@@ -141,6 +157,15 @@ function isAllDataValid(){
 function addErrorMessage(errMsg:string) {
     let errSummary = getById("validation-summary");
     let errItem = document.createElement("li");
+    //errItem.classList.add("myclass");
+    errItem.innerText = errMsg;
+    errSummary.appendChild(errItem);
+}
+
+function addErrorMsgWithCustomerClass(errMsg:string, cssClass:string){
+    let errSummary = getById("validation-summary");
+    let errItem = document.createElement("li");
+    errItem.classList.add(cssClass);
     errItem.innerText = errMsg;
     errSummary.appendChild(errItem);
 }
